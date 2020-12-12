@@ -404,10 +404,12 @@ class OAuthRemoteApp(object):
         try:
             resp = http.urlopen(req)
             content = resp.read()
+            log.debug('Response Content %r' % (content))
             resp.close()
             return resp, content
         except http.HTTPError as resp:
             content = resp.read()
+            log.debug('Response Content %r' % (content))
             resp.close()
             return resp, content
 
