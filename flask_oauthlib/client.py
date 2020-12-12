@@ -659,6 +659,7 @@ class OAuthRemoteApp(object):
             'client_secret': self.consumer_secret,
             'redirect_uri': session.get('%s_oauthredir' % self.name)
         }
+        log.debug('Prepare oauth2 url %r', self.access_token_url)
         log.debug('Prepare oauth2 remote args %r', remote_args)
         remote_args.update(self.access_token_params)
         headers = copy(self._access_token_headers)
@@ -688,6 +689,7 @@ class OAuthRemoteApp(object):
 
         data = parse_response(resp, content, content_type=self.content_type)
         log.debug('Received response %r', data)
+        log.debug('Received response code %d', resp.code)
         if resp.code not in (200, 201):
             raise OAuthException(
                 'Invalid response from %s' % self.name,
